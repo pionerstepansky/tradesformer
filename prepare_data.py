@@ -33,8 +33,8 @@ def train_val_split(order_books, trades, targets, val_size):
     val_order_books = order_books[order_books.ts > train_test_split_timestamp]
     train_trades = trades[trades.ts <= train_test_split_timestamp]
     val_trades = trades[trades.ts > train_test_split_timestamp]
-    train_targets = targets.iloc[:len(train_trades)]
-    val_targets = targets.iloc[len(train_trades):]
+    train_targets = targets.iloc[:len(train_order_books)]
+    val_targets = targets.iloc[len(train_order_books):]
     print('Train data:')
     print(f'\tOrder books: {len(train_order_books)}')
     print(f'\tTrades: {len(train_trades)}')
