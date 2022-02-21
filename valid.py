@@ -21,6 +21,8 @@ if __name__ == "__main__":
         print(f'Start fold {current_fold}:')
         train_order_books, val_order_books = order_books.iloc[train_index], order_books.iloc[val_index]
         train_targets, val_targets = targets.iloc[train_index], targets.iloc[val_index]
+        assert len(train_order_books) == len(train_targets)
+        assert len(val_order_books) == len(val_targets)
         train_dataset = TradesDataset(train_order_books, trades, train_targets, batch_size=batch_size,
                                       order_books_seq_len=seq_len, trades_seq_len=seq_len)
         val_dataset = TradesDataset(val_order_books, trades, val_targets, batch_size=batch_size,
