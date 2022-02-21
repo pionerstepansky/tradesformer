@@ -1,19 +1,16 @@
 import argparse
-import os
 
-import pandas as pd
-
-from dataset import TradesDataset
-from layers import Time2Vector, CUSTOM_LAYERS
-from model import create_model
-from prepare_data import read_and_preprocess_data
-import tensorflow as tf
 import numpy as np
 import pandas as pd
+import tensorflow as tf
 
-# hyperparameters
+from dataset import TradesDataset
+from layers import CUSTOM_LAYERS
+from prepare_data import read_and_preprocess_data
 from train import СHECKPOINT
 
+
+# hyperparameters
 batch_size = 64
 seq_len = 100
 d_k = 256

@@ -2,9 +2,6 @@ import numpy as np
 import tensorflow as tf
 from tensorflow.keras.layers import Dense, Layer, Dropout, LayerNormalization, Conv1D, Concatenate
 
-CUSTOM_LAYERS = {'Time2Vector': Time2Vector, 'SingleAttention': SingleAttention, 'MultiAttention': MultiAttention,
-                 'TransformerEncoder': TransformerEncoder, 'CrossAttention': CrossAttention}
-
 
 class Time2Vector(Layer):
     def __init__(self, seq_len, **kwargs):
@@ -203,3 +200,7 @@ class CrossAttention(Layer):
                        'attn_heads': self.attn_heads,
                        'dropout_rate': self.dropout_rate})
         return config
+
+
+CUSTOM_LAYERS = {'Time2Vector': Time2Vector, 'SingleAttention': SingleAttention, 'MultiAttention': MultiAttention,
+                 'TransformerEncoder': TransformerEncoder, 'CrossAttention': CrossAttention}

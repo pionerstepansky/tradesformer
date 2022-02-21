@@ -7,7 +7,6 @@ from tensorflow.keras.layers import Dense, Layer, Dropout, LayerNormalization, C
 
 from layers import Time2Vector, TransformerEncoder, CrossAttention
 
-
 def create_model(batch_size, seq_len, d_k, d_v, n_heads, ff_dim):
     conv1 = Conv1D(32, 2, padding='causal', dilation_rate=1, activation='relu')
     conv2 = Conv1D(32, 2, padding='causal', dilation_rate=2, activation='relu')
