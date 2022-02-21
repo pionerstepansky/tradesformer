@@ -11,6 +11,10 @@ from contants import *
 from sklearn.model_selection import KFold
 
 if __name__ == "__main__":
+    gpu_devices = tf.config.experimental.list_physical_devices('GPU')
+    for device in gpu_devices:
+        tf.config.experimental.set_memory_growth(device, True)
+
     parser = argparse.ArgumentParser()
     parser.add_argument('--dataset', type=str,
                         help='Input directory. Must include order_books.csv, trades.csv, targets.csv')
