@@ -11,7 +11,7 @@ from train import СHECKPOINT
 
 
 # hyperparameters
-batch_size = 64
+batch_size = 1
 seq_len = 100
 d_k = 256
 d_v = 256

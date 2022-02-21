@@ -11,7 +11,7 @@ class TradesDataset(tf.keras.utils.Sequence):
                  shuffle=False):
         # pad for first sequences.
         super(TradesDataset, self).__init__()
-        self.length = (len(order_books) - order_books_seq_len)
+        self.length = (len(order_books) - order_books_seq_len + 1)
         self.indexes = np.arange(self.length)
         self.order_books = order_books
         self.targets = targets
