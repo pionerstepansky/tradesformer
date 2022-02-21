@@ -38,7 +38,7 @@ if __name__ == "__main__":
     model = create_model(batch_size, seq_len, d_k, d_v, n_heads, ff_dim)
     model.summary()
 
-    callback = tf.keras.callbacks.ModelCheckpoint('Tradesformer.hdf5',
+    callback = tf.keras.callbacks.ModelCheckpoint('tradesformer.hdf5',
                                                   monitor='val_loss',
                                                   save_best_only=True, verbose=1)
 

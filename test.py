@@ -41,8 +41,6 @@ if __name__ == "__main__":
     prediction = (probs > 0.5).astype('int')
     prediction[prediction == 0] = -1
     prediction = pd.Series(prediction[:, 0], name='target')
-    print(len(prediction))
-    print(len(test_order_books))
     assert len(prediction) == len(test_order_books)
     prediction.to_csv('prediction.csv')
 
