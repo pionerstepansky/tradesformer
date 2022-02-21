@@ -2,7 +2,6 @@ import argparse
 
 from sklearn.model_selection import KFold
 
-# import tensorflow as tf
 from contants import *
 from dataset import TradesDataset
 from prepare_data import read_and_preprocess_data
@@ -26,8 +25,12 @@ if __name__ == "__main__":
                                       order_books_seq_len=seq_len, trades_seq_len=seq_len)
         val_dataset = TradesDataset(val_order_books, trades, val_targets, batch_size=batch_size,
                                     order_books_seq_len=seq_len, trades_seq_len=seq_len)
-        print(train_dataset[len(train_dataset) - 1])
-        print(val_dataset[len(val_dataset) - 1])
+        print(train_dataset[len(train_dataset) - 1][0][0].shape)
+        print(train_dataset[len(train_dataset) - 1][0][1].shape)
+        print(train_dataset[len(train_dataset) - 1][1][0].shape)
+        print(val_dataset[len(val_dataset) - 1][0][0].shape)
+        print(val_dataset[len(val_dataset) - 1][0][1].shape)
+        print(val_dataset[len(val_dataset) - 1][1][0].shape)
         # model = create_model(batch_size, seq_len, d_k, d_v, n_heads, ff_dim)
         # model.fit(train_dataset,
         #           epochs=1,

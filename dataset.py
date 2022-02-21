@@ -2,10 +2,10 @@ import concurrent
 import math
 
 import numpy as np
-import tensorflow as tf
+from tensorflow.keras.utils import Sequence
 
 
-class TradesDataset(tf.keras.utils.Sequence):
+class TradesDataset(Sequence):
 
     def __init__(self, order_books, trades, targets=None, batch_size=32, order_books_seq_len=1, trades_seq_len=1,
                  shuffle=False):
