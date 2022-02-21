@@ -1,1 +1,1 @@
-![](model.png)
+![architecture](model.png)
