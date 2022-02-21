@@ -4,6 +4,7 @@ import os
 import pandas as pd
 
 from dataset import TradesDataset
+from layers import Time2Vector
 from model import create_model
 from prepare_data import read_and_preprocess_data
 import tensorflow as tf
@@ -37,7 +38,7 @@ if __name__ == "__main__":
     test_dataset = TradesDataset(padded_test_order_books, padded_test_trades, targets=None, batch_size=batch_size,
                                  order_books_seq_len=seq_len, trades_seq_len=seq_len)
 
-    model = tf.keras.models.load_model(СHECKPOINT)
+    model = tf.keras.models.load_model(СHECKPOINT, custom_objects={'Time2Vector': Time2Vector})
 
     probs = model.predict(test_dataset)
     prediction = (probs > 0.5).astype('int')
