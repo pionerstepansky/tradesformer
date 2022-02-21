@@ -31,7 +31,7 @@ class TradesDataset(Sequence):
         right_border = min(index + self.order_books_seq_len, len(self.order_books))
         order_books_seq = self.order_books.iloc[index:right_border]
         if self.isTrain:
-            target = self.targets.iloc[min(right_border, len(self.targets)) - 1]
+            target = self.targets.iloc[right_border - 1]
         else:
             target = None
         trade_index = int(order_books_seq.iloc[self.order_books_seq_len - 1]['last_trade_idx'])
