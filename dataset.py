@@ -28,9 +28,10 @@ class TradesDataset(tf.keras.utils.Sequence):
         return self.length // self.batch_size
 
     def __get_sequence__(self, index):
-        order_books_seq = self.order_books.iloc[index:index + self.order_books_seq_len]
+        right_border = min(index + self.order_books_seq_len, len(self.order_books))
+        order_books_seq = self.order_books.iloc[index:right_border]
         if self.isTrain:
-            target = self.targets.iloc[min(index + self.order_books_seq_len, len(self.targets)) - 1]
+            target = self.targets.iloc[min(right_border, len(self.targets)) - 1]
         else:
             target = None
         # target = self.targets.iloc[min(index + self.order_books_seq_len, len(self.targets))]
