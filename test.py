@@ -7,17 +7,7 @@ import tensorflow as tf
 from dataset import TradesDataset
 from layers import CUSTOM_LAYERS
 from prepare_data import read_and_preprocess_data
-from train import СHECKPOINT
-
-
-# hyperparameters
-batch_size = 64
-seq_len = 100
-d_k = 256
-d_v = 256
-n_heads = 12
-ff_dim = 256
-num_workers = 8
+from contants import *
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

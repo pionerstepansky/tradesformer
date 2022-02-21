@@ -4,19 +4,10 @@ import os
 import pandas as pd
 
 from dataset import TradesDataset
+from contants import *
 from model import create_model
 from prepare_data import read_and_preprocess_data
 import tensorflow as tf
-
-# hyperparameters
-batch_size = 64
-seq_len = 100
-d_k = 256
-d_v = 256
-n_heads = 12
-ff_dim = 256
-num_workers = 8
-СHECKPOINT = 'tradesformer.hdf5'
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
