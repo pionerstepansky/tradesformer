@@ -26,7 +26,7 @@ if __name__ == "__main__":
     parser.add_argument('--dataset', type=str, help='Input directory. Must include order_books.csv, trades.csv.')
     args = parser.parse_args()
 
-    test_order_books, test_trades = read_and_preprocess_data(args.dataset, is_train=False)
+    test_order_books, test_trades, _ = read_and_preprocess_data(args.dataset, is_train=False)
 
     padded_test_order_books = pd.DataFrame(np.pad(test_order_books.values, ((seq_len - 1, 0), (0, 0)),  'edge'),
                                     columns=test_order_books.columns)
