@@ -36,7 +36,6 @@ class TradesDataset(tf.keras.utils.Sequence):
             target = self.targets.iloc[min(right_border, len(self.targets)) - 1]
         else:
             target = None
-        # target = self.targets.iloc[min(index + self.order_books_seq_len, len(self.targets))]
         trade_index = int(order_books_seq.iloc[self.order_books_seq_len - 1]['last_trade_idx'])
         if trade_index < 0:
             trades_seq = np.zeros((self.trades_seq_len, self.trades_features_count))
@@ -45,10 +44,7 @@ class TradesDataset(tf.keras.utils.Sequence):
             if len(trades_seq) < self.trades_seq_len:
                 trades_seq = np.pad(trades_seq, ((self.trades_seq_len - len(trades_seq), 0), (0, 0)), 'edge')
         order_books_seq.drop(columns=['last_trade_idx'], inplace=True)
-        if self.isTrain:
-            return order_books_seq.values, trades_seq, target
-        else:
-            return order_books_seq.values, trades_seq, None
+        return order_books_seq.values, trades_seq, target
 
     def on_epoch_end(self):
         self.indexes = np.arange(self.length)
@@ -72,7 +68,3 @@ class TradesDataset(tf.keras.utils.Sequence):
                 return [np.array(order_books), np.array(trades)], np.array(targets, dtype='float').squeeze()
             else:
                 return [np.array(order_books), np.array(trades)]
-
-
-import tensorflow as tf
-print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
