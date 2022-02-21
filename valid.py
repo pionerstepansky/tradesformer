@@ -19,7 +19,7 @@ if __name__ == "__main__":
 
     order_books, trades, targets = read_and_preprocess_data(args.dataset)
     kf = KFold(n_splits=args.folds)
-    current_fold = 0
+    current_fold = 1
     for train_index, val_index in kf.split(order_books):
         print('-----------------------------------------------------')
         print(f'Start fold {current_fold}:')
