@@ -38,11 +38,9 @@ if __name__ == "__main__":
     model = tf.keras.models.load_model(СHECKPOINT, custom_objects=CUSTOM_LAYERS)
 
     probs = model.predict(test_dataset)
-    print(probs)
     prediction = (probs > 0.5).astype('int')
-    print(prediction)
     prediction[prediction == 0] = -1
-    prediction = pd.Series(prediction, name='target')
+    prediction = pd.Series(prediction[:, 0], name='target')
     assert len(prediction) == len(test_order_books)
     prediction.to_csv('prediction.csv')
 
