@@ -36,6 +36,6 @@ if __name__ == "__main__":
                   use_multiprocessing=True,
                   shuffle=True,
                   workers=num_workers)
-        current_fold += 1
         print(f'fold {current_fold} Finished')
+        current_fold += 1
 
