@@ -63,6 +63,6 @@ class TradesDataset(Sequence):
                 trades.append(trades_seq)
                 targets.append(target)
             if self.isTrain:
-                return [np.array(order_books), np.array(trades)], np.array(targets, dtype='float').squeeze()
+                return [np.array(order_books), np.array(trades)], np.array(targets, dtype='float').reshape((order_books.shape[0], -1))
             else:
                 return [np.array(order_books), np.array(trades)]
