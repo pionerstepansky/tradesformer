@@ -44,13 +44,16 @@ def train_val_split(order_books, trades, targets, val_size):
     return (train_order_books, val_order_books), (train_trades, val_trades), (train_targets, val_targets)
 
 
-def prepare_data(order_books, trades, targets = None):
-    '''
-        Convert prices to stock return to make our time series more stationary
-    '''
+def prepare_data(order_books, trades, targets=None):
     prices_columns = [col for col in order_books.columns if 'price' in col]
-    order_books.loc[:, prices_columns] = order_books.loc[:, prices_columns].pct_change()
-    trades.loc[:, 'price'] = trades.loc[:, 'price'].pct_change()
+    order_books_avg = order_books.loc[:, prices_columns].expanding().mean()
+    order_books_std = order_books.loc[:, prices_columns].expanding().std().fillna(1)
+    order_books.loc[:, prices_columns] = (order_books.loc[:, prices_columns] - order_books_avg) / order_books_std
+
+    trades_avg = trades.loc[:, 'price'].expanding().mean()
+    trades_std = trades.loc[:, 'price'].expanding().std().fillna(1)
+    trades.loc[:, 'price'] = (trades.loc[:, 'price'] - trades_avg) / trades_std
+
     trades.loc[:, 'quantity'] = trades.loc[:, 'quantity']
     trades.loc[trades['side'] == 'buy', 'side'] = 1
     trades.loc[trades['side'] == 'sell', 'side'] = 0
@@ -65,10 +68,11 @@ def prepare_data(order_books, trades, targets = None):
     return order_books, trades, targets
 
 
-def read_and_preprocess_data(data_path, isTrain=True, val_size=None):
+def read_and_preprocess_data(data_path, is_train=True, val_size=None):
     order_books = pd.read_csv(os.path.join(data_path, 'order_books.csv'), index_col=[0])
+    print(order_books.head(10))
     trades = pd.read_csv(os.path.join(data_path, 'trades.csv'), index_col=[0])
-    if isTrain:
+    if is_train:
         targets = pd.read_csv(os.path.join(data_path, 'targets.csv'), index_col=[0])
         if val_size is not None:
             (train_order_books, val_order_books), (train_trades, val_trades), (
@@ -81,6 +85,4 @@ def read_and_preprocess_data(data_path, isTrain=True, val_size=None):
             order_books, trades, targets = prepare_data(order_books, trades, targets)
             return order_books, trades, targets
     else:
-        prepare_data(order_books, trades)
-
-
+        return prepare_data(order_books, trades)

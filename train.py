@@ -9,7 +9,7 @@ from prepare_data import read_and_preprocess_data
 import tensorflow as tf
 
 # hyperparameters
-batch_size = 64
+batch_size = 32
 seq_len = 100
 d_k = 256
 d_v = 256
@@ -21,12 +21,14 @@ num_workers = 8
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--dataset', type=str, help='Input directory. Must include order_books.csv, trades.csv.')
-    parser.add_argument('--val_size', type=int, default=None, choices=range(0, 101), metavar="[0-100]", help='Validate data size in percents. The value must be from 0 to 100.')
+    parser.add_argument('--val_size', type=int, default=None, choices=range(0, 101), metavar="[0-100]",
+                        help='Validate data size in percents. The value must be from 0 to 100.')
     args = parser.parse_args()
 
     if args.val_size:
         (train_order_books, val_order_books), (train_trades, val_trades), (
-            train_targets, val_targets) = read_and_preprocess_data(args.dataset, (100 - args.val_size) / 100)
+            train_targets, val_targets) = read_and_preprocess_data(args.dataset, is_train=True,
+                                                                   val_size=args.val_size / 100)
     else:
         (train_order_books, val_order_books), (train_trades, val_trades), (
             train_targets, val_targets) = read_and_preprocess_data(args.dataset)
@@ -55,4 +57,3 @@ if __name__ == "__main__":
 
     print('Training finished')
     print(f'Model saved to {СHECKPOINT}')
-
