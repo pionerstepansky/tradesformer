@@ -70,7 +70,6 @@ def prepare_data(order_books, trades, targets=None):
 
 def read_and_preprocess_data(data_path, is_train=True, val_size=None):
     order_books = pd.read_csv(os.path.join(data_path, 'order_books.csv'), index_col=[0])
-    print(order_books.head(10))
     trades = pd.read_csv(os.path.join(data_path, 'trades.csv'), index_col=[0])
     if is_train:
         targets = pd.read_csv(os.path.join(data_path, 'targets.csv'), index_col=[0])

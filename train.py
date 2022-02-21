@@ -9,7 +9,7 @@ from prepare_data import read_and_preprocess_data
 import tensorflow as tf
 
 # hyperparameters
-batch_size = 32
+batch_size = 64
 seq_len = 100
 d_k = 256
 d_v = 256
@@ -23,6 +23,7 @@ if __name__ == "__main__":
     parser.add_argument('--dataset', type=str, help='Input directory. Must include order_books.csv, trades.csv.')
     parser.add_argument('--val_size', type=int, default=None, choices=range(0, 101), metavar="[0-100]",
                         help='Validate data size in percents. The value must be from 0 to 100.')
+    parser.add_argument('--epoch', type=int, default=1,  help='Number of training epochs')
     args = parser.parse_args()
 
     if args.val_size:
@@ -41,15 +42,14 @@ if __name__ == "__main__":
     model = create_model(batch_size, seq_len, d_k, d_v, n_heads, ff_dim)
     model.summary()
 
-    callback = tf.keras.callbacks.ModelCheckpoint(СHECKPOINT,
+    checkpoint = tf.keras.callbacks.ModelCheckpoint(СHECKPOINT,
                                                   monitor='val_loss',
                                                   save_best_only=True, verbose=1)
+    tensorboard = tf.keras.callbacks.TensorBoard(log_dir="./logs")
 
     history = model.fit(train_dataset,
-                        epochs=3,
-                        steps_per_epoch=1000,
-                        validation_steps=100,
-                        callbacks=[callback],
+                        epochs=args.epoch,
+                        callbacks=[tensorboard, checkpoint],
                         validation_data=val_dataset,
                         use_multiprocessing=True,
                         shuffle=True,
