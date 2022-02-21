@@ -17,11 +17,7 @@ if __name__ == "__main__":
     parser.add_argument('--folds', type=int, default=2, choices=range(0, 10), metavar="[0-10]", help='Folds count.')
     args = parser.parse_args()
 
-    # order_books, trades, targets = read_and_preprocess_data(args.dataset)
-    order_books = pd.read_csv(os.path.join(args.dataset, 'order_books.csv'), index_col=[0])
-    trades = pd.read_csv(os.path.join(args.dataset, 'trades.csv'), index_col=[0])
-    targets = pd.read_csv(os.path.join(args.dataset, 'targets.csv'), index_col=[0])
-    print(trades)
+    order_books, trades, targets = read_and_preprocess_data(args.dataset)
     kf = KFold(n_splits=args.folds)
     current_fold = 0
     for train_index, val_index in kf.split(order_books):
@@ -33,11 +29,9 @@ if __name__ == "__main__":
         right_train_timestamp = train_order_books.iloc[len(train_order_books) - 1].ts
         # train_trades = trades[left_train_timestamp < trades.ts <= right_train_timestamp]
         # test_trades = pd.concat([trades[trades.ts < left_train_timestamp], trades[right_train_timestamp < trades.ts]])
-        train_order_books, train_trades, train_targets = prepare_data(train_order_books, trades.copy(), train_targets)
-        val_order_books, val_trades, val_targets = prepare_data(val_order_books, trades.copy(), val_targets)
-        train_dataset = TradesDataset(train_order_books, train_trades, train_targets, batch_size=batch_size,
+        train_dataset = TradesDataset(train_order_books, trades, train_targets, batch_size=batch_size,
                                       order_books_seq_len=seq_len, trades_seq_len=seq_len)
-        val_dataset = TradesDataset(val_order_books, val_trades, val_targets, batch_size=batch_size,
+        val_dataset = TradesDataset(val_order_books, trades, val_targets, batch_size=batch_size,
                                     order_books_seq_len=seq_len, trades_seq_len=seq_len)
         model = create_model(batch_size, seq_len, d_k, d_v, n_heads, ff_dim)
         model.fit(train_dataset,
