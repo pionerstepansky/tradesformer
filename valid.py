@@ -24,7 +24,7 @@ if __name__ == "__main__":
         print('-----------------------------------------------------')
         print(f'Start fold {current_fold}:')
         train_order_books, val_order_books = order_books.iloc[train_index], order_books.iloc[val_index]
-        train_targets, val_targets = order_books.iloc[train_index], order_books.iloc[val_index]
+        train_targets, val_targets = targets.iloc[train_index], targets.iloc[val_index]
         # left_train_timestamp = train_order_books.iloc[0].ts
         # right_train_timestamp = train_order_books.iloc[len(train_order_books) - 1].ts
         # train_trades = trades[left_train_timestamp < trades.ts <= right_train_timestamp]
