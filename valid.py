@@ -28,7 +28,7 @@ if __name__ == "__main__":
         print('-----------------------------------------------------')
         print(f'Start fold {current_fold}:')
         train_order_books = order_books[train_index], order_books[test_index]
-        train_targets, test_targets = order_books[train_index], order_books[test_index]
+        train_targets, test_targets = order_books.iloc[train_index], order_books.iloc[test_index]
         left_train_timestamp = train_order_books.iloc[0].ts
         right_train_timestamp = train_order_books.iloc[0].ts
         # train_trades = trades[left_train_timestamp < trades.ts <= right_train_timestamp]
