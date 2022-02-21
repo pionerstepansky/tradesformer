@@ -27,10 +27,10 @@ if __name__ == "__main__":
     for train_index, test_index in kf.split(order_books):
         print('-----------------------------------------------------')
         print(f'Start fold {current_fold}:')
-        train_order_books = order_books.iloc[train_index], order_books.iloc[test_index]
+        train_order_books, test_order_books = order_books.iloc[train_index], order_books.iloc[test_index]
         train_targets, test_targets = order_books.iloc[train_index], order_books.iloc[test_index]
         left_train_timestamp = train_order_books.iloc[0].ts
-        right_train_timestamp = train_order_books.iloc[0].ts
+        right_train_timestamp = train_order_books.iloc[len(train_order_books) - 1].ts
         # train_trades = trades[left_train_timestamp < trades.ts <= right_train_timestamp]
         # test_trades = pd.concat([trades[trades.ts < left_train_timestamp], trades[right_train_timestamp < trades.ts]])
         train_order_books, train_trades, train_targets = prepare_data(train_order_books, trades, train_targets)
