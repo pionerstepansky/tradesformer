@@ -29,10 +29,10 @@ if __name__ == "__main__":
                                     order_books_seq_len=seq_len, trades_seq_len=seq_len)
         print(train_dataset[len(train_dataset) - 1][0][0].shape)
         print(train_dataset[len(train_dataset) - 1][0][1].shape)
-        print(train_dataset[len(train_dataset) - 1][1][0].shape)
+        print(train_dataset[len(train_dataset) - 1][1][0])
         print(val_dataset[len(val_dataset) - 1][0][0].shape)
         print(val_dataset[len(val_dataset) - 1][0][1].shape)
-        print(val_dataset[len(val_dataset) - 1][1][0].shape)
+        print(val_dataset[len(val_dataset) - 1][1][0])
         # model = create_model(batch_size, seq_len, d_k, d_v, n_heads, ff_dim)
         # model.fit(train_dataset,
         #           epochs=1,
