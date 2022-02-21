@@ -1,11 +1,9 @@
-from tqdm import tqdm
-
 import tensorflow as tf
-import keras
+from tensorflow.keras.layers import Dense, LayerNormalization, Conv1D, Concatenate, GlobalAveragePooling1D, Input
 from tensorflow.keras.models import Model
-from tensorflow.keras.layers import Dense, Layer, Dropout, LayerNormalization, Conv1D, Concatenate, GlobalAveragePooling1D, Input, GlobalMaxPooling1D
 
 from layers import Time2Vector, TransformerEncoder, CrossAttention
+
 
 def create_model(batch_size, seq_len, d_k, d_v, n_heads, ff_dim):
     conv1 = Conv1D(32, 2, padding='causal', dilation_rate=1, activation='relu')

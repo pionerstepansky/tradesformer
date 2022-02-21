@@ -2,8 +2,6 @@ import concurrent
 import math
 
 import numpy as np
-import collections.abc
-from collections.abc import MutableMapping
 import tensorflow as tf
 
 
