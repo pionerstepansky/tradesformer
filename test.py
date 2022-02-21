@@ -11,7 +11,7 @@ from train import СHECKPOINT
 
 
 # hyperparameters
-batch_size = 1
+batch_size = 64
 seq_len = 100
 d_k = 256
 d_v = 256
@@ -34,6 +34,7 @@ if __name__ == "__main__":
 
     test_dataset = TradesDataset(padded_test_order_books, padded_test_trades, targets=None, batch_size=batch_size,
                                  order_books_seq_len=seq_len, trades_seq_len=seq_len)
+
 
     model = tf.keras.models.load_model(СHECKPOINT, custom_objects=CUSTOM_LAYERS)
 

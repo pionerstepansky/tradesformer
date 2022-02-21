@@ -1,4 +1,6 @@
 import concurrent
+import math
+
 import numpy as np
 import collections.abc
 from collections.abc import MutableMapping
@@ -25,7 +27,7 @@ class TradesDataset(tf.keras.utils.Sequence):
         self.isTrain = targets is not None
 
     def __len__(self):
-        return self.length // self.batch_size
+        return math.ceil(self.length / self.batch_size)
 
     def __get_sequence__(self, index):
         right_border = min(index + self.order_books_seq_len, len(self.order_books))
