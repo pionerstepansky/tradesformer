@@ -12,6 +12,9 @@
 ## Архитектура:
 ![architecture](model.png)
 
+## Dilated causal convolution:
+![convovution](https://i.stack.imgur.com/7wJDc.gif)
+
 ## Cсылки: 
 [Stock predictions with state-of-the-art Transformer and Time Embeddings](https://towardsdatascience.com/stock-predictions-with-state-of-the-art-transformer-and-time-embeddings-3a4485237de6)
 
