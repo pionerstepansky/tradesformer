@@ -11,3 +11,10 @@
 
 ## Архитектура:
 ![architecture](model.png)
+
+## Cсылки: 
+[Stock predictions with state-of-the-art Transformer and Time Embeddings](https://towardsdatascience.com/stock-predictions-with-state-of-the-art-transformer-and-time-embeddings-3a4485237de6)
+
+[Time2Vec: Learning a Vector Representation of Time](https://arxiv.org/abs/1907.05321)
+
+[Transformers for limit order books](https://arxiv.org/abs/2003.00130)
